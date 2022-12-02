@@ -28,14 +28,14 @@ Wp11 = (s/M+wB1)/(s+wB1*A_Wp);
 Wp=[Wp11 0; 0 0.2]; %
 
 % Wu
-Wu22 = ((s^2)*5e-3+s*7e-4+5e-5) / (s^2+s*14*10^(-4)+10^(-6));
+Wu22 = s^2*5*10^(-3)+s*7*10^(-4)+5*10^(-5) / (s^2+s*14*10^(-4)+10^(-6));
 Wu=[0.01 0; 0 Wu22]; % Control weight
     
 % Wt
-Wt = []; % Empty weight 
+Wt = []; % Empty weight
+G_real = minreal(G);
 
-
-[K,CL,GAM,INFO]=mixsyn(minreal(G),Wp,Wu,Wt);
+[K,CL,GAM,INFO]=mixsyn(G,Wp,Wu,Wt);
 
 
 
