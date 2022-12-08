@@ -17,8 +17,10 @@ omega = [0, 0.6*pi];
         RGAno(i)=sum(sum(abs(RGAw(:,:,i)-eye(2))));
         
     end
- RGA = frd(RGAw,omega)
-%% MIMO exercise 4
+RGA = frd(RGAw,omega);
+%% MIMO exercise 5
+G = tf(FWT(1:2,1:2));
+
 wB1=0.3; % desired closed-loop bandwidth
 
 % Wp
@@ -34,20 +36,18 @@ Wu=[0.01 0; 0 Wu22]; % Control weight
 % Wt
 Wt = []; % Empty weight 
 
-
 [K,CL,GAM,INFO]=mixsyn(minreal(G),Wp,Wu,Wt);
 
+%% MIMO exercise 6
+freq = logspace(-2,2);
+
+function S = sens(s)
+S = ((s^2)*5e-3+s*7e-4+5e-5) / (s^2+s*14*10^(-4)+10^(-6));
+end
+
+S_array = [50];
+
+plot()
 
 
-%% doesn't work yet 
-% w = [1 2]
-% u = [1 2]
-% systemnames ='G Wp Wu Wt'; % Define systems
-% inputvar =[w(2); u(2)]; % Input generalized plant
-% input_to_G = [u];
-% input_to_Wu= [u];
-% input_to_Wt= [G_real];
-% input_to_Wp= [w+G_real];
-% outputvar= [Wp; Wt; Wu; G_real+w]; % Output generalized plant
-% sysoutname=P;
-% T = sysic
+
