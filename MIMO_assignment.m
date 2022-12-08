@@ -39,15 +39,52 @@ Wt = []; % Empty weight
 [K,CL,GAM,INFO]=mixsyn(minreal(G),Wp,Wu,Wt);
 
 %% MIMO exercise 6
-freq = logspace(-2,2);
 
-function S = sens(s)
-S = ((s^2)*5e-3+s*7e-4+5e-5) / (s^2+s*14*10^(-4)+10^(-6));
+Num = 50;
+linFreq = linspace(1,200,Num);
+logFreq = logspace(-5,2,Num);
+
+Wu_array = zeros(Num,1);
+Wp_array = zeros(Num,1);
+Wpbook_array = zeros(Num,1);
+
+for i = 1:Num
+    freq = logFreq(i);
+    Wu_array(i) = funcWu22(freq);
+    Wp_array(i) = funcWp11(freq);
+    Wpbook_array(i) = funcWp11book(freq);
 end
 
-S_array = [50];
+figure(1)
+loglog(logFreq,Wp_array);
+title("Wp11")
+ylabel("1/|Wp11|    (dB)")
+xlabel("Time (rad/sec)")
+figure(2)
+plot(linFreq,Wu_array);
+title("Wu22")
 
-plot()
+figure(3)
+loglog(logFreq,Wpbook_array)
+title("Wpbook")
 
+function S = funcWu22(s)
+    S = ((s^2)*5e-3+s*7e-4+5e-5) / (s^2+s*14*10^(-4)+10^(-6));
+end
 
+function valueWp11 = funcWp11(s)
+    wB1=0.3*2*pi; % desired closed-loop bandwidth
+    A_Wp = 10^-4;
+    M=3 ; % desired bound on hinfnorm(S)
+    valueWp11 = (s/M+wB1)/(s+wB1*A_Wp);
+    valueWp11 = 1/valueWp11;
+end
+
+function valueWp11_book = funcWp11book(s)
+    wB1=0.3; % desired closed-loop bandwidth
+    A_Wp = 10^-4;
+    M=3 ; % desired bound on hinfnorm(S)
+    valueWp11 = (s/sqrt(M)+wB1)^2/(s+wB1*sqrt(A_Wp))^2;
+    valueWp11_book = 1/valueWp11;
+end 
 
