@@ -40,9 +40,9 @@ Wt = []; % Empty weight
 
 %% MIMO exercise 6
 
-Num = 50;
+Num = 60;
 linFreq = linspace(1,200,Num);
-logFreq = logspace(-5,2,Num);
+logFreq = logspace(-7,5,Num);
 
 Wu_array = zeros(Num,1);
 Wp_array = zeros(Num,1);
@@ -60,7 +60,7 @@ loglog(logFreq,Wp_array);
 ylabel("1/|Wp11|    (dB)")
 xlabel("Time (rad/sec)")
 figure(2)
-plot(linFreq,Wu_array);
+loglog(logFreq,Wu_array);
 ylabel("1/|Wu22|    (dB)")
 xlabel("Time (rad/sec)")
 figure(3)
