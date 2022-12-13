@@ -57,19 +57,19 @@ end
 
 figure(1)
 loglog(logFreq,Wp_array);
-title("Wp11")
 ylabel("1/|Wp11|    (dB)")
 xlabel("Time (rad/sec)")
 figure(2)
 plot(linFreq,Wu_array);
-title("Wu22")
-
+ylabel("1/|Wu22|    (dB)")
+xlabel("Time (rad/sec)")
 figure(3)
 loglog(logFreq,Wpbook_array)
 title("Wpbook")
 
-function S = funcWu22(s)
+function invS = funcWu22(s)
     S = ((s^2)*5e-3+s*7e-4+5e-5) / (s^2+s*14*10^(-4)+10^(-6));
+    invS = 1/S;
 end
 
 function valueWp11 = funcWp11(s)
