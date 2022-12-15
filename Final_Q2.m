@@ -39,6 +39,7 @@ P=minreal(Plant) % to check number of states
 LoopT=G*K2+eye(2);
 PolesL=pole(minreal(LoopT));
 nyqDet=LoopT(1,1)*LoopT(2,2)-LoopT(1,2)*LoopT(2,1);
+figure()
 nyquist(nyqDet)
 
 %% 2.8 
@@ -48,12 +49,14 @@ Sens=(1/Wp)*CL2(1:2,1:2);
 Compl=eye(2)-Sens;
 
 % Step in reference
+figure()
 step(Compl(1:2,1))
 stepinfo(Compl(1:2,1))
 
 
 % Plot influence of step in disturbance
 D_rej=Sens*FWT(1:2,3);
+figure()
 step(D_rej)
 stepinfo(D_rej)
 

@@ -21,11 +21,15 @@ Tf=0;
 K = pid(Kp, Ki, Kd);
 
 PoleCancel = minreal(Plant*K);
+figure()
 margin(PoleCancel)
 sys_cl = feedback(PoleCancel,1);
 
 % Step response and other system specificiations
 [y,t] = step(sys_cl);
+
+figure()
 step(sys_cl)
 stepinfo(sys_cl)
+figure()
 rlocus(PoleCancel)
